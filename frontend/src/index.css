@@ -1,0 +1,430 @@
+main {
+  min-height: 80vh;
+}
+
+.CartScreenRow {
+  padding: 2rem 0;
+}
+
+h1 {
+  font-size: 3.8rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+.rating span {
+  margin: 0.05rem;
+}
+
+.margin-top-from-navbar {
+  margin-top: 10rem;
+}
+
+/* Navbar */
+.navbarcss {
+  background-color: brown;
+}
+
+.btn-position {
+  margin-left: 0.5rem;
+}
+
+.margin {
+  margin: 0rem 1.5rem !important;
+}
+
+.lng-position {
+  margin-right: 1rem;
+  margin-left: auto;
+}
+
+@media (max-width: 1200px) {
+  .search-position {
+    margin-top: 1.5rem;
+  }
+}
+
+.btn-customise {
+  background-color: white !important;
+  color: black !important;
+}
+
+.btn-language {
+  background-color: white;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: black !important;
+  width: 200px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.btn-admin {
+  background-color: brown;
+  margin: 0rem 3rem;
+  margin-bottom: 0.5rem;
+  padding: 2rem;
+  border-radius: 10%;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.btn-admin:hover {
+  cursor: pointer;
+}
+
+.btn-language:hover {
+  background-color: rgb(51, 51, 26);
+}
+
+.btn-language2 {
+  background-color: pink;
+  color: black;
+}
+
+/* .btn-lgn{
+  padding: 1rem;
+  background-color: burlywood;
+} */
+
+.test-date-picker {
+  margin-bottom: 10rem;
+}
+
+.text-lng {
+  color: white;
+}
+
+.flag {
+  width: 30px;
+  margin-right: 1rem;
+}
+
+.navbaractive {
+  background-color: brown;
+  animation-name: appear;
+  animation-duration: 1s;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* carousel */
+
+.bg-css {
+  background-color: rgb(33, 33, 18);
+}
+
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+}
+.carousel-caption {
+  position: absolute;
+  top: 0;
+}
+
+.carousel-caption h4 {
+  color: #fff;
+}
+
+.carousel img {
+  display: block;
+  height: 300px;
+  padding: 50px;
+  margin: 40px;
+  border-radius: 20%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.carousel a {
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .carousel-caption h4 {
+    font-size: 2.5vw;
+  }
+}
+
+/* ProductScreen */
+
+.bg-brown {
+  background-color: brown !important;
+}
+
+.vertical-center {
+  transform: translateY(10%);
+}
+
+/* ShippingScreen */
+
+.form-margin {
+  margin-bottom: 1rem;
+}
+
+.form-bg {
+  background-color: brown !important;
+  color: #fff !important;
+}
+
+.form-margin::placeholder {
+  color: #fff !important;
+}
+
+.font-bold {
+  font-size: 1.4rem;
+  font-weight: bold !important;
+}
+
+/* Product */
+
+.enterpicker {
+  transition-timing-function: ease-in;
+  transition: 1.5s;
+  background-color: brown !important;
+  width: 270px;
+  min-height: 430px;
+}
+
+.leavepicker {
+  background-color: white !important;
+  min-height: 430px;
+}
+
+/* ProductEditScreen */
+
+input[type="file"] {
+  display: none;
+}
+
+.btn-img-upload {
+  background-color: brown;
+  height: 50px;
+  width: 200px;
+  margin: 1rem 2rem 1rem 0rem;
+}
+
+.btn-img-upload label {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(50%);
+}
+
+.image-size {
+  width: 20%;
+}
+
+.choose_main_image {
+  background-color: rgb(214, 214, 194);
+}
+
+.currentImage {
+  width: 30%;
+  opacity: 1;
+  margin: 0.5rem;
+  animation-name: appear;
+  animation-duration: 1s;
+}
+
+.currentImage:hover {
+  opacity: 0.5;
+}
+
+.text_img_uploaded {
+  margin-left: 1rem;
+}
+
+/* ProductListScreen */
+
+.btn-position-right {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+}
+
+/* SHIPPING */
+
+.btn-font-size {
+  font-size: 2.5rem;
+}
+
+/* ProfileScreen */
+.font-size {
+  font-size: 2.1rem;
+  text-align: center;
+}
+
+.margin-top {
+  margin-top: 0.4rem;
+}
+
+/* ImageSlider */
+.slide_img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity ease-in-out 0.4s;
+}
+
+.slide_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.active-anim {
+  opacity: 1;
+}
+
+.container-slider {
+  max-width: 640px;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0px 20px rgba(77, 37, 37, 0.2);
+}
+
+.btn-slide {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f1f1f1;
+  border: 1px solid rgba(34, 34, 34, 0.287);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.prev {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-60%);
+}
+.next {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-60%);
+}
+
+.container-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+.dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #f1f1f1;
+  margin: 0 5px;
+  background: #f1f1f1;
+}
+.dot.active {
+  background: rgb(32, 32, 32);
+}
+
+/* BookingCalendar */
+
+.picker-calendar {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  border: 2px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.datePicker {
+  width: 80%;
+  background-color: white;
+  font-size: 1.1rem;
+  line-height: 1rem;
+}
+
+.react-calendar__navigation button:enabled:hover {
+  background-color: grey;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: grey;
+}
+
+.react-calendar__tile--now {
+  background: blue;
+}
+
+/* LOGINSCREEN */
+
+.form-msg-style {
+  font-style: italic;
+  font-size: 0.75rem;
+  color: red !important;
+  margin-bottom: 1rem !important;
+  margin-top: 0.25rem !important;
+}
+
+/* RegisterScreen */
+
+.title {
+  text-align: center;
+  margin-top: 50vh;
+}
+
+/* ActivateScreen */
+.activate-title {
+  text-align: center;
+}
+
+.form-center {
+  text-align: center;
+}
+
+/* TUTORAIL - BOOKLIST */
+
+.tutorial {
+  background-color: rgb(224, 224, 210);
+  margin: 3rem auto;
+  border-color: crimson;
+  border-radius: 1rem;
+  max-width: 500px;
+}
+
+.tutorial-font {
+  color: red;
+}
+
+.img-tutorial {
+  margin-left: 1rem;
+  top: 50%;
+  transform: translateX(50%);
+}
