@@ -229,5 +229,5 @@ AWS_S3_SECRET_ACCESS_KEY = str(os.getenv('AWS_S3_SECRET_ACCESS_KEY'))
 AWS_STORAGE_BUCKET_NAME = str(os.getenv('AWS_STORAGE_BUCKET_NAME'))
 
 
-# if os.getcwd() == '/app':
-#     DEBUG = False
+if os.getcwd() == '/app':
+    DEBUG = False
