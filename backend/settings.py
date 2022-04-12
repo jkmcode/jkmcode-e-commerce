@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'jkm-shop.herokuapp.com']
 
@@ -229,5 +229,5 @@ AWS_S3_SECRET_ACCESS_KEY = str(os.getenv('AWS_S3_SECRET_ACCESS_KEY'))
 AWS_STORAGE_BUCKET_NAME = str(os.getenv('AWS_STORAGE_BUCKET_NAME'))
 
 
-if os.getcwd() == '/app':
-    DEBUG = False
+# if os.getcwd() == '/app':
+#     DEBUG = False
