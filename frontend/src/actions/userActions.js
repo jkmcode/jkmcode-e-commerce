@@ -269,10 +269,15 @@ export const reset_password = (email) => async (dispatch) => {
 
     dispatch({
       type: PASSWORD_RESET_SUCCESS,
+      payload: data,
     });
   } catch (error) {
     dispatch({
       type: PASSWORD_RESET_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
@@ -293,7 +298,7 @@ export const email_exist = (email) => async (dispatch) => {
 
     const body = JSON.stringify({ email });
 
-    const { data } = await axios.post("api/users/email_exist/", body, config);
+    const { data } = await axios.get("api/users/email_exist/", body, config);
 
     dispatch({
       type: USER_EMAIL_EXIST_SUCCESS,
@@ -332,6 +337,10 @@ export const resetPasswordConfirm =
     } catch (error) {
       dispatch({
         type: PASSWORD_RESET_CONFIRM_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
       });
     }
   };

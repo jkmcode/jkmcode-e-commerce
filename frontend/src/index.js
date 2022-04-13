@@ -239,6 +239,9 @@ i18n
           "User with this email already exists":
             "User with this email already exists",
           "Password do not match": "Password do not match",
+
+          create_user_info:
+            "Email has been sent. Please click to the link in order to activate user account.",
         },
       },
 
@@ -445,6 +448,8 @@ i18n
           "User with this email already exists":
             "Użytkownik z tym adresem email już istnieje",
           "Password do not match": "Podane hasła nie są takie same",
+          create_user_info:
+            "Email został wysłany. Kliknij w link, aby aktywować konto użytkownika.",
         },
       },
     },

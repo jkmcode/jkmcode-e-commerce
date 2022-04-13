@@ -47,9 +47,9 @@ function ResetPassword({ location, history }) {
 
   const onSubmit = (data) => {
     //dispatch(login(data.email, data.password))
-    reset();
+    //reset();
     dispatch(reset_password(data.email));
-    //dispatch(email_exist(data.email));
+    dispatch(email_exist(data.email));
     setRequestSent(true);
     setMsgEmail(true);
   };

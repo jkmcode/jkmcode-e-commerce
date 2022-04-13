@@ -112,8 +112,6 @@ Database used in project is Postgresql which is on Heroku server (This is hobby 
 Do Zrobienia:
 Password reset (obsługa błedów),
 PWA,
-Zminiejszanie zdjęć,
-wdrożenie na server Heroku,
-Postgres,
-AWS,
+zmiejszanie zdjęć,
 Nie wchodzi transalte po stronie Django (połowicznie ogarnięte xD )
+image slider

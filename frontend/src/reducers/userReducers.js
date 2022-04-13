@@ -32,9 +32,11 @@ import {
   PASSWORD_RESET_REQUEST,
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_RESET,
   PASSWORD_RESET_CONFIRM_REQUEST,
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
+  PASSWORD_RESET_CONFIRM_RESET,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -164,12 +166,15 @@ export const userPasswordResetReducers = (state = {}, action) => {
     case PASSWORD_RESET_SUCCESS:
       return {
         loading: false,
-        succes: true,
+        success: true,
         email: action.payload,
       };
 
     case PASSWORD_RESET_FAIL:
       return { loading: false, error: action.payload };
+
+    case PASSWORD_RESET_RESET:
+      return {};
 
     case PASSWORD_RESET_CONFIRM_SUCCESS:
       return { loading: false, succes: true };
@@ -178,11 +183,33 @@ export const userPasswordResetReducers = (state = {}, action) => {
     //   return { loading: false, error: action.payload };
 
     case PASSWORD_RESET_CONFIRM_FAIL:
-      return { loading: false, error: true };
+      return { loading: false, error: action.payload };
+
+    case PASSWORD_RESET_CONFIRM_RESET:
+      return {};
 
     // return {
     //     ...state
     // }
+
+    default:
+      return state;
+  }
+};
+
+export const userPasswordConfirmationReducers = (state = {}, action) => {
+  switch (action.type) {
+    case PASSWORD_RESET_CONFIRM_REQUEST:
+      return { loading: true };
+
+    case PASSWORD_RESET_CONFIRM_SUCCESS:
+      return { loading: false, success: true };
+
+    case PASSWORD_RESET_CONFIRM_FAIL:
+      return { loading: false, error: action.payload };
+
+    case PASSWORD_RESET_CONFIRM_RESET:
+      return {};
 
     default:
       return state;

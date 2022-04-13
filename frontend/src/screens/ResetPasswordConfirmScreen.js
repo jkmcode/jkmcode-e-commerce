@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from "react";
 import FormContainer from "../components/FormContainer";
 import Message from "../components/Message";
+import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { resetPasswordConfirm } from "../actions/userActions";
+import { PASSWORD_RESET_CONFIRM_RESET } from "../constants/UserConstants";
 
-function ResetPasswordConfirmScreen({ location }) {
+import {
+  REQUEST_FAILED_WITH_STATUS_CODE_500,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_EN,
+  REQUEST_FAILED_WITH_STATUS_CODE_400,
+  REQUEST_FAILED_WITH_STATUS_CODE_400_TOKEN_USED,
+  REQUEST_FAILED_REST_OF_STATUS_CODE,
+  PASSWORD_DOES_NOT_MATCH,
+} from "../constants/EnvConstans";
+
+function ResetPasswordConfirmScreen({ location, history }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [messagePassword, setMessagePassword] = useState("");
@@ -17,8 +28,10 @@ function ResetPasswordConfirmScreen({ location }) {
 
   const params = useParams();
 
-  const userPassword = useSelector((state) => state.userPassword);
-  const { error, loading, success } = userPassword;
+  const userPasswordConfirmation = useSelector(
+    (state) => state.userPasswordConfirmation
+  );
+  const { error, loading, success } = userPasswordConfirmation;
 
   const uid = params.uid;
   const token = params.token;
@@ -36,16 +49,28 @@ function ResetPasswordConfirmScreen({ location }) {
   const onSubmit = (data) => {
     if (data.confNewPassword !== data.newPassword) {
       setMessagePassword("Password do not match");
-    } else if (error) {
-      setMessageError("Błąd sieciowy");
-    } else if (success) {
-      setMessageSuccess("Hasło zmienione pomyślnie");
     } else {
       dispatch(
         resetPasswordConfirm(uid, token, data.newPassword, data.confNewPassword)
       );
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
+        setMessageError(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
+      } else if (error === REQUEST_FAILED_WITH_STATUS_CODE_400) {
+        setMessageError(REQUEST_FAILED_WITH_STATUS_CODE_400_TOKEN_USED);
+      } else {
+        setMessageError(REQUEST_FAILED_REST_OF_STATUS_CODE);
+      }
+    }
+
+    if (success) {
+      setMessageSuccess(PASSWORD_DOES_NOT_MATCH);
+    }
+  }, [error, success]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -55,10 +80,12 @@ function ResetPasswordConfirmScreen({ location }) {
 
       if (messageError) {
         setMessageError("");
+        dispatch({ type: PASSWORD_RESET_CONFIRM_RESET });
       }
 
       if (messageSuccess) {
         setMessageSuccess("");
+        history.push(redirect);
       }
     }, 5000);
 
