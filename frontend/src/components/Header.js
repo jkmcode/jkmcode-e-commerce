@@ -93,25 +93,6 @@ function Header() {
                 </LinkContainer>
               )}
             </Nav>
-
-            {/* <Nav className="ml-auto">
-                                {userInfo && userInfo.IsAdmin && (
-                                    <NavDropdown title='Admin' id='adminmenue' className="text-right">
-                                        <LinkContainer to='/admin/userlist'>
-                                            <NavDropdown.Item>{t('Header_navdrodown_user')}</NavDropdown.Item>
-                                        </LinkContainer>
-                                        <NavDropdown.Divider />
-                                        <LinkContainer to='/admin/productlist'>
-                                            <NavDropdown.Item>{t('Header_navdrodown_products')}</NavDropdown.Item>
-                                        </LinkContainer>
-                                        <NavDropdown.Divider />
-                                        <LinkContainer to='/admin/orderlist'>
-                                            <NavDropdown.Item>{t('Header_navdrodown_orders')}</NavDropdown.Item>
-                                        </LinkContainer>
-                                    </NavDropdown>           
-                                )}
-                        </Nav> */}
-
             <LanguageSwitcher />
           </Navbar.Collapse>
         </Container>

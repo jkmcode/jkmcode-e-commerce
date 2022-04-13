@@ -4,7 +4,7 @@ JKM E-COMMERCE
 
 ## Demo link:
 
-Access my site at : (empty)
+Access my site at : https://jkm-shop.herokuapp.com/
 
 ## About The App
 
