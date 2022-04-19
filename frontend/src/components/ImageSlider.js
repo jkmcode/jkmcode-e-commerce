@@ -12,7 +12,6 @@ function ImageSlider() {
 
   const productImagesList = useSelector((state) => state.productImagesList);
   const { images } = productImagesList;
-  console.log("ImageSlider", images);
 
   const dispatch = useDispatch();
 

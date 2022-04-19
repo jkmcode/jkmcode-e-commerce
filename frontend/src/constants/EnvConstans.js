@@ -3,6 +3,8 @@ export const REQUEST_FAILED_WITH_STATUS_CODE_500 =
   "Request failed with status code 500";
 export const REQUEST_FAILED_WITH_STATUS_CODE_500_EN =
   "Server error or no internet access. Check your internet connection and run the application again.";
+export const REQUEST_FAILED_WITH_STATUS_CODE_500_PL =
+  "Błąd serwera lub brak dostępu do Internetu. Sprawdź połączenie internetowe i ponownie uruchom aplikację.";
 export const REQUEST_FAIL_WITH_STATUS_CODE_404 =
   "Request failed with status code 404";
 export const REQUEST_FAIL_WITH_STATUS_CODE_404_EN =

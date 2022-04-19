@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PayPalButton } from "react-paypal-button-v2";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import Cookies from "js-cookie";
 import {
   getOrderDetails,
   payOrder,
@@ -15,13 +16,23 @@ import {
   ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
 import { useTranslation } from "react-i18next";
+import {
+  REQUEST_FAILED_WITH_STATUS_CODE_500,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_EN,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_PL,
+} from "../constants/EnvConstans";
 
 function OrderScreen({ match }) {
   const orderId = match.params.id;
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const lng = {
+    language: Cookies.get("i18next"),
+  };
+
   const [sdkReady, setSdkReady] = useState(false);
+  const [msgError, setMsgError] = useState("");
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
@@ -72,6 +83,17 @@ function OrderScreen({ match }) {
     }
   }, [dispatch, order, orderId, successPay, successDeliver]);
 
+  useEffect(() => {
+    if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
+      if (lng.language === "en") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
+      }
+      if (lng.language === "pl") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_PL);
+      }
+    }
+  }, [error, lng]);
+
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
@@ -86,7 +108,7 @@ function OrderScreen({ match }) {
     </div>
   ) : error ? (
     <div className="margin-top-from-navbar">
-      <Message variant="danger">{error}</Message>
+      <Message variant="danger">{msgError}</Message>
     </div>
   ) : (
     <div className="margin-top-from-navbar">
@@ -113,7 +135,10 @@ function OrderScreen({ match }) {
 
               {order.isDelivered ? (
                 <Message variant="success">
-                  {t("OrderScreen_message_delivered_on")} {order.deliveredAt}
+                  {t("OrderScreen_message_delivered_on")}{" "}
+                  {order.deliveredAt.substring(0, 10)}{" "}
+                  {t("OrderScreen_message_delivered_on_time")}{" "}
+                  {order.deliveredAt.substring(11, 16)}
                 </Message>
               ) : (
                 <Message variant="warning">
@@ -228,17 +253,17 @@ function OrderScreen({ match }) {
 
             {userInfo &&
               userInfo.IsAdmin &&
-              order.isPaid &&
+              // order.isPaid &&
               !order.isDelivered && (
-                <ListGroup.Item>
-                  <Button
-                    type="button"
-                    className="btn btn-block"
-                    onClick={deliverHandler}
-                  >
-                    Mark as Deliver
-                  </Button>
-                </ListGroup.Item>
+                // <ListGroup.Item>
+                <Button
+                  type="button"
+                  className="bg-brown rounded mt-3 mb-3"
+                  onClick={deliverHandler}
+                >
+                  Mark as Deliver
+                </Button>
+                //</ListGroup.Item>
               )}
           </Card>
         </Col>

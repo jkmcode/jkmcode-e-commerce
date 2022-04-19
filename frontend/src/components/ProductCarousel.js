@@ -18,9 +18,7 @@ function ProductCarousel() {
 
   return loading ? (
     <Loader />
-  ) : error ? (
-    <Message variant="danger">{error}</Message>
-  ) : (
+  ) : error ? null : (
     <Carousel pause="hover" className="bg-css">
       {products.map((product, index) => (
         <Carousel.Item key={index}>

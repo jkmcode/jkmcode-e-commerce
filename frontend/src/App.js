@@ -26,7 +26,7 @@ import ActivateScreen from "./screens/ActivateScreen";
 import LoginDjoserScreen from "./screens/LoginDjoserScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import ResetPasswordConfirmScreen from "./screens/ResetPasswordConfirmScreen";
-import SignupScreen from "./screens/SignupScreen";
+//import SignupScreen from "./screens/SignupScreen";
 
 import { HashRouter as Router, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
@@ -60,7 +60,7 @@ function App() {
 
           {/* Djoser */}
           <Route path="/login-djoser" component={LoginDjoserScreen} />
-          <Route path="/signup" component={SignupScreen} />
+          {/* <Route path="/signup" component={SignupScreen} /> */}
           <Route path="/reset-password" component={ResetPasswordScreen} />
           <Route
             path="/password/reset/confirm/:uid/:token"

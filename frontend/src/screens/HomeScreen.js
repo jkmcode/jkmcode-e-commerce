@@ -12,6 +12,13 @@ import { listProducts } from "../actions/productActions";
 import { useTranslation } from "react-i18next";
 import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
+
+import {
+  REQUEST_FAILED_WITH_STATUS_CODE_500,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_EN,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_PL,
+} from "../constants/EnvConstans";
 
 function HomeScreen() {
   const { t } = useTranslation();
@@ -20,11 +27,25 @@ function HomeScreen() {
   const productList = useSelector((state) => state.productList);
   const { error, loading, products, page, pages } = productList;
 
+  const [msgError, setMsgError] = useState("");
+
   let historyy = useHistory();
   let keyword = historyy.location.search;
 
-  console.log("historyy", historyy);
-  console.log("keyword", keyword);
+  const lng = {
+    language: Cookies.get("i18next"),
+  };
+
+  useEffect(() => {
+    if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
+      if (lng.language === "en") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
+      }
+      if (lng.language === "pl") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_PL);
+      }
+    }
+  }, [error, lng]);
 
   useEffect(() => {
     dispach(listProducts(keyword));
@@ -32,23 +53,13 @@ function HomeScreen() {
 
   return (
     <div className="margin-top-from-navbar">
-      {/* <div className='test-date-picker'>
-                <ExampleDatePicker />
-            
-            <LinkContainer to={'/tutorial'}>
-                <Button className='btn-sm'>
-                    Tutorial
-                </Button>                                     
-            </LinkContainer>
-            </div> */}
-
       {!keyword && <ProductCarousel />}
       <h3>{t("latest_products")}</h3>
 
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">{msgError}</Message>
       ) : (
         <div>
           <div className="zoom">

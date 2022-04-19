@@ -7,6 +7,13 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../actions/orderActions";
 import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
+
+import {
+  REQUEST_FAILED_WITH_STATUS_CODE_500,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_EN,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_PL,
+} from "../constants/EnvConstans";
 
 function PlaceOrderScreen({ history }) {
   const orderCreate = useSelector((state) => state.orderCreate);
@@ -15,6 +22,12 @@ function PlaceOrderScreen({ history }) {
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+
+  const [msgError, setMsgError] = useState("");
+
+  const lng = {
+    language: Cookies.get("i18next"),
+  };
 
   cart.itemsPrice = cart.cartItems
     .reduce((acc, item) => acc + item.price * item.qty, 0)
@@ -40,6 +53,17 @@ function PlaceOrderScreen({ history }) {
     }
   }, [success, history]);
 
+  useEffect(() => {
+    if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
+      if (lng.language === "en") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
+      }
+      if (lng.language === "pl") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_PL);
+      }
+    }
+  }, [error, lng]);
+
   const placeOrder = () => {
     dispatch(
       createOrder({
@@ -55,7 +79,7 @@ function PlaceOrderScreen({ history }) {
   };
 
   return (
-    <div>
+    <div className="margin-top-from-navbar">
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
@@ -159,14 +183,14 @@ function PlaceOrderScreen({ history }) {
                     disabled={cart.cartItems === 0}
                     onClick={placeOrder}
                   >
-                    Place Order
+                    {t("PlaceOrderScreen_btn")}
                   </Button>
                 </div>
               </ListGroup.Item>
             </ListGroup>
           </Card>
           <ListGroup.Item className="border-0">
-            {error && <Message variant="danger">{error}</Message>}
+            {error && <Message variant="danger">{msgError}</Message>}
           </ListGroup.Item>
         </Col>
       </Row>

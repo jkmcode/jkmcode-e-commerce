@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 import {
   Row,
   Col,
@@ -20,17 +21,26 @@ import {
 } from "../actions/productActions";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productsConstants";
 import { useTranslation } from "react-i18next";
+import {
+  REQUEST_FAILED_WITH_STATUS_CODE_500,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_EN,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_PL,
+} from "../constants/EnvConstans";
 
 function ProductScreen({ match, history }) {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const { t } = useTranslation();
-
   const dispatch = useDispatch();
+  const [msgError, setMsgError] = useState("");
 
   const stock = {
     inStock: t("ProductScreen_status_in_stock"),
+  };
+
+  const lng = {
+    language: Cookies.get("i18next"),
   };
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -47,14 +57,27 @@ function ProductScreen({ match, history }) {
   } = productReviewCreate;
 
   useEffect(() => {
-    if (successProductReview) {
-      setRating(0);
-      setComment("");
-      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
-    }
+    if (match.params._id) {
+      if (successProductReview) {
+        setRating(0);
+        setComment("");
+        dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+      }
 
-    dispatch(listProductsDetails(match.params._id));
+      dispatch(listProductsDetails(match.params._id));
+    }
   }, [dispatch, match, successProductReview]);
+
+  useEffect(() => {
+    if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
+      if (lng.language === "en") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
+      }
+      if (lng.language === "pl") {
+        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_PL);
+      }
+    }
+  }, [error, lng]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params._id}?qty=${qty}`);
@@ -78,7 +101,7 @@ function ProductScreen({ match, history }) {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">{msgError}</Message>
       ) : (
         <div>
           <Row>
@@ -99,13 +122,7 @@ function ProductScreen({ match, history }) {
                       <Rating value={product.rating} color={"#f8e825"} />
                     </Col>
 
-                    <Col>
-                      <Rating
-                        value={product.rating}
-                        text={`${product.numReviews} reviews`}
-                        color={"#f8e825"}
-                      />
-                    </Col>
+                    <Col>{`${product.numReviews} reviews`}</Col>
                   </Row>
                 </ListGroup.Item>
 
@@ -123,7 +140,11 @@ function ProductScreen({ match, history }) {
                     <Col>
                       <strong>{t("ProductScreen_description")}:</strong>
                     </Col>
-                    <Col>{product.description}</Col>
+                    <Col>
+                      {product.description
+                        ? product.description
+                        : t("ProductScreen_status_no_description")}
+                    </Col>
                   </Row>
                 </ListGroup.Item>
               </ListGroup>
@@ -186,7 +207,9 @@ function ProductScreen({ match, history }) {
             <Col md={6} className="my-5">
               <h4>{t("ProductScreen_reviews")}</h4>
               {product.reviews.length === 0 && (
-                <Message variant="info">No Reviews</Message>
+                <Message variant="info">
+                  {t("ProductScreen_no_reviews")}
+                </Message>
               )}
 
               <ListGroup variant="flush">
@@ -199,15 +222,21 @@ function ProductScreen({ match, history }) {
                   </ListGroup.Item>
                 ))}
 
-                <ListGroup.Item>
-                  <h4>{t("ProductScreen_write_a_review")}</h4>
+                <ListGroup.Item className="p-0">
+                  <h4 className="mt-4">{t("ProductScreen_write_a_review")}</h4>
 
                   {loadingProductReview && <Loader />}
                   {successProductReview && (
-                    <Message variant="success">Review Submitted</Message>
+                    <Message variant="success">
+                      {t("ProductScreen_review_submitted")}
+                    </Message>
                   )}
                   {errorProductReview && (
-                    <Message variant="danger">{errorProductReview}</Message>
+                    <div>
+                      <Message variant="danger">
+                        {t("ProductScreen_product_already_reviewed")}
+                      </Message>
+                    </div>
                   )}
 
                   {userInfo ? (
@@ -263,7 +292,17 @@ function ProductScreen({ match, history }) {
                     </Form>
                   ) : (
                     <Message variant="info">
-                      Please <Link to="/login">login</Link> to write a review
+                      {lng.language === "en" ? (
+                        <div>
+                          Please <Link to="/login">login</Link> to write a
+                          review
+                        </div>
+                      ) : (
+                        <div>
+                          <Link to="/login">Zaloguj się </Link> aby opublikować
+                          opinie
+                        </div>
+                      )}
                     </Message>
                   )}
                 </ListGroup.Item>

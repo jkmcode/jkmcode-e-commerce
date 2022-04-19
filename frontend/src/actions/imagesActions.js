@@ -9,9 +9,7 @@ import {
 export const listProductImages = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_IMAGES_REQUEST });
-    console.log("product_id", productId);
     const { data } = await axios.get(`/api/products/images/${productId}`);
-    console.log("ImagesAcrion", data);
 
     dispatch({
       type: PRODUCT_LIST_IMAGES_SUCCESS,

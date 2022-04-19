@@ -283,8 +283,6 @@ export const reset_password = (email) => async (dispatch) => {
 };
 
 export const email_exist = (email) => async (dispatch) => {
-  console.log("wchodzę do email_exist", email);
-
   try {
     dispatch({
       type: USER_EMAIL_EXIST_REQUEST,
