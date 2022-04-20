@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from base.views import *
 
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.views.generic import TemplateView
 
 

@@ -1,21 +1,11 @@
-from django.shortcuts import render , redirect
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from base.models import Product
-from base.serializer import ProductSerializer, UserSerializer, UserSeralizerWithToken, RequestPasswordResetEmailSerializer, NewPasswordSerializer
-
+from base.serializer import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
-from rest_framework import status, generics
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.urls import reverse
-from .utils import Util
 
 
 @api_view(['GET'])
@@ -55,86 +45,18 @@ def registerUser(request):
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
-###### RESET PASSWORD
-
-@api_view(['POST'])
-def requestPasswordResetEmail(request):
-    data = request.data
-    email=data['email']
-
-    #serializer = RequestPasswordResetEmailSerializer(email, many=False)
-
-    if User.objects.filter(email=email).exists():
-        user = User.objects.get(email=email)
-        uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
-        current_site = get_current_site(request=request).domain
-        token = RefreshToken.for_user(user)
-        tokenStr = str(token.access_token)
-        relativeLink = reverse('password-reset-confirm', kwargs={'uidb64': uidb64, 'token': token})
-        redirect_url = request.data.get('redirect_url', '')
-        absurl = 'http://'+current_site + relativeLink
-        email_body = 'Hello, \n Use link below to reset your password  \n' + \
-                absurl+"?redirect_url="+redirect_url
-        data = {'email_body': email_body, 'to_email': user.email,
-                'email_subject': 'Reset your passsword'}
-        Util.send_email(data)
-
-        class UserSupp():
-            user = User.objects.get(email=email)
-            current_site = get_current_site(request=request).domain
-            redirect_url = request.data.get('redirect_url', '')
-            
-
-        #test = {'user':user, 'current_site':current_site}
-        serializer = RequestPasswordResetEmailSerializer(UserSupp, many=False)
-        #return Response(serializer.data)
-        return Response('email został wysłany')
-
-    #return Response(serializer.data)
-    return Response('wybrany email nie istnieje')
-
-
-@api_view(['GET'])
-def passwordTokenCheckAPI(request, uidb64, token):
-
-
-    # class UserSupp():
-    #     uidb64 = uidb64
-    #     token = token
-    response = redirect('http://localhost:3000/newpassword')
-    redirect_url = request.GET.get('redirect_url', 'http://localhost:3000/newpassword')
-    #print('redirect_url-----------------------------------', redirect_url)
-
-    try:
-        id = smart_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(id=id)
-        serializer = NewPasswordSerializer({'uidb64':uidb64,'token':token}, many=False)
-        
-    except:
-        pass
-
-    return response
-
-
-
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUserProfile(request):  
-    user = request.user #pobieramy bieżące dane Usera 
-    serializer = UserSeralizerWithToken(user, many=False) #uzywamy classy UserSeralizerWithToken bo generujemy nowy token 
-
-    #nowe dane z nowym tokenem
+    user = request.user 
+    serializer = UserSeralizerWithToken(user, many=False)
     data = request.data
 
     try:
         user.first_name = data['name']
         user.username = data['email']
         user.email = data['email']
-
-        #tworzenie nowego hasła
         user.password = make_password(data['password'])
-
-        #zapisujemy nowy dane 
         user.save()
         return Response(serializer.data)
     except:

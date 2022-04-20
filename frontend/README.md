@@ -1,16 +1,12 @@
 # Project Title
 
-JKM E-COMMERCE
-
-## Demo link:
-
-Access my site at : https://jkm-shop.herokuapp.com/
+JKM SHOP
 
 ## About The App
 
 ### General information
 
-JKM E-COMMERCE contains all features which allows you to buy product and pay by Paypal or by cash.
+JKM SHOP contains all features which allows you to buy product and pay by Paypal or by cash.
 
 Thanks to Admin panel you can manage sales strategies to achive best result. For example you can add, remove or edit your products without limits. Moreover you can establish amount of product.
 
@@ -18,7 +14,7 @@ Additiocally customers can evaluate pruducts. Those which has the hightest ratin
 
 Admin has a access to the all user accounts to manage them and has a overview on user's orders.
 
-JKM E-COMMERCE is written in polish and english language.
+JKM SHOP is written in polish and english language.
 
 ## Technical stack
 
@@ -26,7 +22,6 @@ JKM E-COMMERCE is written in polish and english language.
 
 - Django
 - REST API
-- Djoser (token authentication)
 - Postgresql
 - AWS
 
@@ -40,12 +35,6 @@ JKM E-COMMERCE is written in polish and english language.
 - Redux
 
 ## Technical approach
-
-### Authentication
-
-From the backend side Djoser library was used in order to create simple authentication system with functions like registration, login, logout, password reset and account activation. To registrate new account, user needs to fill simple form which includes email and password. After that, customer has to click on activation link from the email and click the button named 'activate'.
-
-In order to reset password, user must type an e-mail to which an e-mail with a link will be sent. After clicking on link user will be redirected to the page where set new password will be possible.
 
 ### Authorisation
 
@@ -70,7 +59,7 @@ Admin has a access to:
 
 ## Internacionalisaion
 
-JKM E-COMMERCE is written in engilsh and polish language. Here i18n library and useTranslation hook was used.
+JKM SHOP is written in engilsh and polish language. Here i18n library and useTranslation hook was used.
 
 ### Themes
 

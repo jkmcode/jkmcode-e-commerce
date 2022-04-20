@@ -237,6 +237,10 @@ i18n
 
           Error_500_MSG:
             "Server error or no internet access. Check your internet connection and run the application again.",
+          Error_Other_MSG: "Connection error",
+
+          Error_404_MSG: "No connection to the server",
+          Error_Account_Not_Found: "Login or password is incorrect",
         },
       },
 
@@ -454,6 +458,9 @@ i18n
             "Email został wysłany. Kliknij w link, aby aktywować konto użytkownika.",
           Error_500_MSG:
             "Błąd serwera lub brak dostępu do Internetu. Sprawdź połączenie internetowe i ponownie uruchom aplikację.",
+          Error_Other_MSG: "Błąd sieciowy",
+          Error_404_MSG: "Brak połączenia z serwerem",
+          Error_Account_Not_Found: "Login lub hasło jest nieprawidłowe",
         },
       },
     },
