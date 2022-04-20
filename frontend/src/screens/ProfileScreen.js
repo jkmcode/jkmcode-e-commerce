@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col, Table } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Loader from "../components/Loader";
@@ -12,26 +11,19 @@ import { listMyOrders } from "../actions/orderActions";
 import { useTranslation } from "react-i18next";
 
 function ProfileScreen({ history }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [messagePassword, setMessagePassword] = useState("");
   const [errorUserUpdate, setErrorUserUpdate] = useState(false);
 
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const userDetails = useSelector((state) => state.userDetails);
-  const { error, loading, user } = userDetails;
+  const { loading, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success, error: errorUserUpdateProfile } = userUpdateProfile;
-
-  const orderListMy = useSelector((state) => state.orderListMy);
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
   const preloadedValues = {
     name: "name",
@@ -61,7 +53,7 @@ function ProfileScreen({ history }) {
   }, [dispatch, reset, history, userInfo, user, success]);
 
   const submitHandler = (data) => {
-    if (data.password != data.passwordConfirm) {
+    if (data.password !== data.passwordConfirm) {
       setMessagePassword("Password do not match");
       reset({ password: "", passwordConfirm: "" });
     } else {
@@ -96,7 +88,6 @@ function ProfileScreen({ history }) {
         {messagePassword && (
           <Message variant="danger">{t(messagePassword)}</Message>
         )}
-        {/* {error && <Message variant='danger'>{error}</Message>} */}
         {errorUserUpdate && (
           <Message variant="danger">{t(errorUserUpdateProfile)}</Message>
         )}
@@ -108,7 +99,6 @@ function ProfileScreen({ history }) {
             <Form.Control
               type="text"
               placeholder={t("ProfileScreen_update_form_name_placeholder")}
-              //value ={name}
               {...register("name", {
                 required: t("ProfileScreen_required_error_msg_name"),
                 pattern: {
@@ -135,7 +125,6 @@ function ProfileScreen({ history }) {
             <Form.Control
               type="text"
               placeholder={t("ProfileScreen_update_form_email_placeholder")}
-              // value ={email}
               {...register("email", {
                 required: t("ProfileScreen_required_error_msg_email"),
                 pattern: {
@@ -143,7 +132,6 @@ function ProfileScreen({ history }) {
                   message: t("ProfileScreen_inproper_pattern_email"),
                 },
               })}
-              // onChange={(e) => setEmail(e.target.value)}
               onKeyUp={() => {
                 trigger("email");
               }}
@@ -212,50 +200,6 @@ function ProfileScreen({ history }) {
             {t("ProfileScreen_btn_update")}
           </Button>
         </Form>
-
-        {/* <Col className='margin-top' md={9}> */}
-        {/* <h2 className='font-size'>{t('ProfileScreen_table_orders_title')}</h2>
-                    {loadingOrders ? (
-                        <Loader/>
-
-                    ) : errorOrders ?(
-                        <Message variant='danger'>{errorOrders}</Message>
-                    ) : (
-                        <Table striped responsive className='table=sm'>
-                            <thead>
-                                <tr key={orderListMy._id}>
-                                    <th>ID</th>
-                                    <th>{t('ProfileScreen_table_data')}</th>
-                                    <th>{t('ProfileScreen_table_total')}</th>
-                                    <th>{t('ProfileScreen_table_paid')}</th>
-                                    <th>{t('ProfileScreen_table_delivered')}</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {orders.map(order => (
-                                    <tr>
-                                        <td>{order._id}</td>
-                                        <td>{order.createdAt.substring(0,10)}</td>
-                                        <td>${order.totalPrice}</td>
-                                        <td>{order.isPaid ? order.paidAt.substring(0,10) : (
-                                            <i className='fas fa-times' style={{ color: 'red' }}></i>
-                                        )}</td>
-                                        <td>{order.isDelivered ? order.deliveredAt.substring(0,10) : (
-                                            <i className='fas fa-times' style={{ color: 'red' }}></i>
-                                        )}</td>
-                                        <td>
-                                            <LinkContainer to ={`/order/${order._id}`} className='bnt-block bg-brown rounded'>
-                                                <Button classname='bg-brown'>{t('ProfileScreen_btn_table_delivered')}</Button>
-                                            </LinkContainer>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>    
-                    )} */}
-        {/* </Col> */}
       </FormContainer>
     </div>
   );

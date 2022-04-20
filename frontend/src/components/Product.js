@@ -1,8 +1,7 @@
-import React, { MauseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import Rating from "./Rating";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 function Product({ product }) {
   const [choosePicker, setChoosePicker] = useState(false);

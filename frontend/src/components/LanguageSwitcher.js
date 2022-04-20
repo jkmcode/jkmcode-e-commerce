@@ -5,7 +5,7 @@ import Flags from "country-flag-icons/react/3x2";
 import cookies from "js-cookie";
 import GlobeIcon from "../images/globeIcon.js";
 
-function LanguageSwitcher_supp(props) {
+function LanguageSwitcherSupp(props) {
   const Flag = Flags[props.country_flag];
 
   return <Flag className="flag" />;
@@ -38,7 +38,7 @@ function LanguageSwitcher() {
 
   return (
     <Nav className="ml-auto lng-position">
-      <LanguageSwitcher_supp country_flag={currentLanguage.country} />
+      <LanguageSwitcherSupp country_flag={currentLanguage.country} />
       <NavDropdown title={<GlobeIcon />}>
         {language.map(({ code, name, country }) => (
           <div className="btn-lgn" key={country}>
@@ -47,7 +47,7 @@ function LanguageSwitcher() {
               disabled={currentLanguage.code === code}
               className="btn-language"
             >
-              <LanguageSwitcher_supp country_flag={country} />
+              <LanguageSwitcherSupp country_flag={country} />
               {name}
             </NavDropdown.Item>
           </div>

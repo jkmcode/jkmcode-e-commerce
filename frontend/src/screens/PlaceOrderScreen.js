@@ -33,7 +33,7 @@ function PlaceOrderScreen({ history }) {
     .reduce((acc, item) => acc + item.price * item.qty, 0)
     .toFixed(2);
   cart.shippingPrice = (
-    cart.itemsPrice > 100 || cart.itemsPrice == 0 ? 0 : 10
+    cart.itemsPrice > 100 || cart.itemsPrice === 0 ? 0 : 10
   ).toFixed(2);
   cart.taxPrice = Number(0.23 * cart.itemsPrice).toFixed(2);
   cart.totalPrice = (
@@ -51,7 +51,7 @@ function PlaceOrderScreen({ history }) {
       history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
-  }, [success, history]);
+  }, [dispatch, order._id, success, history]);
 
   useEffect(() => {
     if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {

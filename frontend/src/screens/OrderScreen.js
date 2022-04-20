@@ -41,7 +41,7 @@ function OrderScreen({ match }) {
   const { loading: loadingPay, success: successPay } = orderPay;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
-  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+  const { success: successDeliver } = orderDeliver;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -253,9 +253,8 @@ function OrderScreen({ match }) {
 
             {userInfo &&
               userInfo.IsAdmin &&
-              // order.isPaid &&
+              order.isPaid &&
               !order.isDelivered && (
-                // <ListGroup.Item>
                 <Button
                   type="button"
                   className="bg-brown rounded mt-3 mb-3"
@@ -263,7 +262,6 @@ function OrderScreen({ match }) {
                 >
                   Mark as Deliver
                 </Button>
-                //</ListGroup.Item>
               )}
           </Card>
         </Col>

@@ -6,9 +6,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./bootstrap.min.css";
 
-//import 'bootstrap/dist/css/bootstrap.min.css'
-//import 'bootstrap/dist/js/bootstrap.js'
-
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
@@ -21,18 +18,6 @@ i18n
   .use(initReactI18next)
   .use(LanguageDetector)
   .use(HttpApi)
-  // .init({
-  //   supportedLngs: ["en", "pl"],
-  //   fallbackLng: "en",
-  //   detection: {
-  //     order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],
-  //     caches: ["cookie"],
-  //   },
-  //   backend: {
-  //     loadPath: "/translation/{{lng}}.json",
-  //   },
-  //   react: { useSuspense: false },
-  // });
 
   .init({
     resources: {
@@ -249,6 +234,9 @@ i18n
 
           create_user_info:
             "Email has been sent. Please click to the link in order to activate user account.",
+
+          Error_500_MSG:
+            "Server error or no internet access. Check your internet connection and run the application again.",
         },
       },
 
@@ -464,6 +452,8 @@ i18n
           "Password do not match": "Podane hasła nie są takie same",
           create_user_info:
             "Email został wysłany. Kliknij w link, aby aktywować konto użytkownika.",
+          Error_500_MSG:
+            "Błąd serwera lub brak dostępu do Internetu. Sprawdź połączenie internetowe i ponownie uruchom aplikację.",
         },
       },
     },

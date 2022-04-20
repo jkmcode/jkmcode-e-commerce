@@ -37,11 +37,6 @@ import {
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_RESET,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  USER_LOADED_SUCCESS,
-  USER_LOADED_FAIL,
   ACTIVATE_REQUEST,
   ACTIVATE_SUCCESS,
   ACTIVATE_FAIL,
@@ -66,56 +61,6 @@ export const userActivateReducers = (state = {}, action) => {
       return state;
   }
 };
-
-// const initialState = {
-//     access: localStorage.getItem('access'),
-//     refresh: localStorage.getItem('refresh'),
-//     isAuthenticated: null,
-//     user: null
-// }
-
-// export const userLogin2Reducers = (state = initialState, action) =>{
-//     switch(action.type){
-//         case LOGIN_REQUEST:
-//             return { loading: true}
-
-//         case LOGIN_SUCCESS:
-//             localStorage.setItem('access', action.payload.access)
-//             return {
-//                 loading: false,
-//                 ...state,
-//                 isAuthenticated: true,
-//                 access: action.payload.access,
-//                 refresh: action.payload.refresh
-//             }
-
-//         case USER_LOADED_SUCCESS:
-//             return {
-//                 ...state,
-//                 user: action.payload
-//             }
-
-//         case LOGIN_FAIL:
-//             localStorage.removeItem('access')
-//             localStorage.removeItem('refresh')
-//             return {
-//                 loading: false,
-//                 access: null,
-//                 refresh: null,
-//                 isAuthenticated: false,
-//                 user: null
-//             }
-
-//         case USER_LOADED_FAIL:
-//             return {
-//                 ...state,
-//                 user: null
-//             }
-
-//         default:
-//             return state
-//     }
-// }
 
 export const userLoginReducers = (state = {}, action) => {
   switch (action.type) {
@@ -179,18 +124,11 @@ export const userPasswordResetReducers = (state = {}, action) => {
     case PASSWORD_RESET_CONFIRM_SUCCESS:
       return { loading: false, succes: true };
 
-    // case PASSWORD_RESET_CONFIRM_FAIL:
-    //   return { loading: false, error: action.payload };
-
     case PASSWORD_RESET_CONFIRM_FAIL:
       return { loading: false, error: action.payload };
 
     case PASSWORD_RESET_CONFIRM_RESET:
       return {};
-
-    // return {
-    //     ...state
-    // }
 
     default:
       return state;

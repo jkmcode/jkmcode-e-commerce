@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
-import BookingCalendar from "../components/BookingCalendar";
-import ExampleDatePicker from "../components/DatePicker";
 import ProductCarousel from "../components/ProductCarousel";
 import { listProducts } from "../actions/productActions";
 import { useTranslation } from "react-i18next";
-import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -27,25 +24,16 @@ function HomeScreen() {
   const productList = useSelector((state) => state.productList);
   const { error, loading, products, page, pages } = productList;
 
-  const [msgError, setMsgError] = useState("");
+  const [error500, setError500] = useState(false);
 
   let historyy = useHistory();
   let keyword = historyy.location.search;
 
-  const lng = {
-    language: Cookies.get("i18next"),
-  };
-
   useEffect(() => {
-    if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
-      if (lng.language === "en") {
-        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
-      }
-      if (lng.language === "pl") {
-        setMsgError(REQUEST_FAILED_WITH_STATUS_CODE_500_PL);
-      }
+    if (error == REQUEST_FAILED_WITH_STATUS_CODE_500) {
+      setError500(true);
     }
-  }, [error, lng]);
+  }, [error, error500]);
 
   useEffect(() => {
     dispach(listProducts(keyword));
@@ -58,9 +46,11 @@ function HomeScreen() {
 
       {loading ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{msgError}</Message>
-      ) : (
+      ) : error500 ? (
+        <div>
+          <Message variant="danger">{t("Error_500_MSG")}</Message>
+        </div>
+      ) : !error ? (
         <div>
           <div className="zoom">
             <Row>
@@ -73,7 +63,7 @@ function HomeScreen() {
           </div>
           <Paginate page={page} pages={pages} keyword={keyword} />
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

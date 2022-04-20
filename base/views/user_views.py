@@ -16,13 +16,6 @@ from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnico
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.urls import reverse
 from .utils import Util
-# from django.http import HttpResponsePermanentRedirect
-# import os
-
-
-# class CustomRedirect(HttpResponsePermanentRedirect):
-
-#     allowed_schemes = [os.environ.get('APP_SCHEME'), 'http', 'https']
 
 
 @api_view(['GET'])

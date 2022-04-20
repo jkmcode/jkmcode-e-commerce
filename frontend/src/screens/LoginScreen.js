@@ -8,9 +8,22 @@ import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
 import { login } from "../actions/userActions";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
+
+import {
+  REQUEST_FAILED_WITH_STATUS_CODE_500,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_EN,
+  REQUEST_FAILED_WITH_STATUS_CODE_500_PL,
+  REQUEST_FAIL_WITH_STATUS_CODE_404,
+  REQUEST_FAIL_WITH_STATUS_CODE_404_EN,
+  REQUEST_FAIL_WITH_STATUS_CODE_404_PL,
+  ACCOUNT_NOT_FOUND,
+  ACCOUNT_NOT_FOUND_PL,
+  ACCOUNT_NOT_FOUND_EN,
+} from "../constants/EnvConstans";
 
 function LoginScreen({ history }) {
-  const [msgEmail, setMsgEmail] = useState(false);
+  const [msgEmail, setMsgEmail] = useState("");
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const redirect = history.location.search
@@ -27,31 +40,46 @@ function LoginScreen({ history }) {
     trigger,
   } = useForm();
 
+  const lng = {
+    language: Cookies.get("i18next"),
+  };
+
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+
+    if (error === REQUEST_FAILED_WITH_STATUS_CODE_500) {
+      if (lng.language === "pl") {
+        setMsgEmail(REQUEST_FAILED_WITH_STATUS_CODE_500_PL);
+      } else if (lng.language === "en") {
+        setMsgEmail(REQUEST_FAILED_WITH_STATUS_CODE_500_EN);
+      }
+    } else if (error === REQUEST_FAIL_WITH_STATUS_CODE_404) {
+      if (lng.language === "pl") {
+        setMsgEmail(REQUEST_FAIL_WITH_STATUS_CODE_404_PL);
+      } else if (lng.language === "en") {
+        setMsgEmail(REQUEST_FAIL_WITH_STATUS_CODE_404_EN);
+      }
+    } else if (error === ACCOUNT_NOT_FOUND) {
+      if (lng.language === "pl") {
+        setMsgEmail(ACCOUNT_NOT_FOUND_PL);
+      } else if (lng.language === "en") {
+        setMsgEmail(ACCOUNT_NOT_FOUND_EN);
+      }
+    }
+  }, [history, userInfo, redirect, error, lng]);
 
   const onSubmit = (data) => {
     dispatch(login(data.email, data.password));
     reset();
-    //setMsgEmail(true);
   };
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setMsgEmail(false);
-    }, 10000);
-
-    return () => clearTimeout(timeout);
-  }, [msgEmail]);
 
   return (
     <div className="margin-top-from-navbar">
       <FormContainer>
         <h1>{t("LoginScreen_title")}</h1>
-        {msgEmail && <Message variant="danger">{t(error)}</Message>}
+        {msgEmail && <Message variant="danger">{msgEmail}</Message>}
         {loading && <Loader />}
 
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -115,22 +143,6 @@ function LoginScreen({ history }) {
               to={redirect ? `/register?redirect=${redirect}` : "/register"}
             >
               {t("LoginScreen_register")}
-            </Link>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            {t("LoginScreen_password_reset_forgot_password")}{" "}
-            <Link
-              to={
-                // redirect
-                //   ? `/forgotpassword?forgotpassword=${redirect}`
-                //   : "/forgotpassword"
-                "/reset-password"
-              }
-            >
-              {t("LoginScreen_password_reset")}
             </Link>
           </Col>
         </Row>

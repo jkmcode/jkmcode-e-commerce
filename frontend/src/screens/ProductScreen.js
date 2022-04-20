@@ -2,15 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Button,
-  Card,
-  Form,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Button, Card, Form } from "react-bootstrap";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -106,7 +98,6 @@ function ProductScreen({ match, history }) {
         <div>
           <Row>
             <Col md={6}>
-              {/* <Image src={product.image} alt={product.image} fluid /> */}
               <ImageSlider className="img-slider" />
             </Col>
 
@@ -192,7 +183,7 @@ function ProductScreen({ match, history }) {
                         onClick={addToCartHandler}
                         type="button"
                         className="bg-brown rounded"
-                        disabled={product.countInStock == 0}
+                        disabled={product.countInStock === 0}
                       >
                         {t("ProductScreen_btn_add_to_cart")}
                       </Button>

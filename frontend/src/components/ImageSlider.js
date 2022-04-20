@@ -31,15 +31,11 @@ function ImageSlider() {
     }
   };
 
-  const moveDot = (index) => {
-    setSlideIndex(index);
-  };
-
   useEffect(() => {
-    if (product._id != NaN) {
+    if (product._id !== undefined) {
       dispatch(listProductImages(Number(product._id)));
     }
-  }, [product]);
+  }, [dispatch, product]);
 
   return (
     <div className="container-slider">
@@ -54,7 +50,7 @@ function ImageSlider() {
                 slideIndex === index + 1 ? "slide_img active-anim" : "slide_img"
               }
             >
-              <img src={image.images} />
+              <img src={image.images} alt={image.images} />
             </div>
           );
         })

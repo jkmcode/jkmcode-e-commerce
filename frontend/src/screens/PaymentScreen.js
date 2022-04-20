@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
@@ -13,7 +13,7 @@ function PaymentScreen({ history }) {
 
   const dispatch = useDispatch();
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod] = useState("PayPal");
 
   if (!shippingAddress.address) {
     history.push("/shipping");

@@ -51,14 +51,14 @@ function Header() {
             <Nav className="ml-auto">
               <SearchBox />
               <LinkContainer to="/cart">
-                <Nav.Link className="margin">
+                <Nav.Link>
                   <i className="fas fa-shopping-cart"></i>
                   {t("Header_btn_cart")}
                 </Nav.Link>
               </LinkContainer>
 
               {userInfo ? (
-                <NavDropdown title={userInfo.username}>
+                <NavDropdown title={userInfo.name}>
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>
                       {t("Header_navdrodown_profile")}

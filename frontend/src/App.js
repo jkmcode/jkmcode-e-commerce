@@ -18,16 +18,6 @@ import ProductEditScreen from "./screens/ProductsEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import UserOrders from "./screens/UserOrders";
 import AdminScreen from "./screens/AdminScreen";
-import ResetPassword from "./screens/ResetPassword";
-import NewPassword from "./screens/NewPassword";
-
-//Djoser
-import ActivateScreen from "./screens/ActivateScreen";
-import LoginDjoserScreen from "./screens/LoginDjoserScreen";
-import ResetPasswordScreen from "./screens/ResetPasswordScreen";
-import ResetPasswordConfirmScreen from "./screens/ResetPasswordConfirmScreen";
-//import SignupScreen from "./screens/SignupScreen";
-
 import { HashRouter as Router, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -43,8 +33,6 @@ function App() {
           <Route path="/cart/:_id?" component={CartScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
-          <Route path="/forgotpassword" component={ResetPassword} />
-          <Route path="/newpassword" component={NewPassword} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/admin" component={AdminScreen} />
           <Route path="/orders" component={UserOrders} />
@@ -57,19 +45,6 @@ function App() {
           <Route path="/admin/productlist" component={ProductListScreen} />
           <Route path="/admin/orderlist" component={OrderListScreen} />
           <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
-
-          {/* Djoser */}
-          <Route path="/login-djoser" component={LoginDjoserScreen} />
-          {/* <Route path="/signup" component={SignupScreen} /> */}
-          <Route path="/reset-password" component={ResetPasswordScreen} />
-          <Route
-            path="/password/reset/confirm/:uid/:token"
-            component={ResetPasswordConfirmScreen}
-          />
-          <Route path="/activate/:uid/:token" component={ActivateScreen} />
-
-          {/* //Tutorial
-          <Route path='/tutorial' component={ReactTutorial}/> */}
         </Container>
       </main>
       <Footer />

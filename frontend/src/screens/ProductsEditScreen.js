@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-import { Form, Button, Image, Row, Col } from "react-bootstrap";
+import { Form, Button, Image, Row } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
@@ -13,21 +13,16 @@ import { listProductImages } from "../actions/imagesActions";
 import { PRODUCT_UPDATE_RESET } from "../constants/productsConstants";
 
 function ProductEditScreen({ match, history }) {
-  const [showResults, setShowResults] = React.useState(false);
-  const onClick = () => setShowResults(true);
-  const onClick2 = () => setShowResults(false);
-
-  const dispach = useDispatch();
   const productId = match.params.id;
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-
+  const [showResults] = React.useState(false);
   const [image, setImage] = useState([]);
-
   const [msgTextUpload, setMsgTextUpload] = useState("");
   const [msgTextUploadImages, setMsgTextUploadImages] = useState("");
-
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
@@ -35,20 +30,17 @@ function ProductEditScreen({ match, history }) {
   const [uploading, setUploading] = useState(false);
   const [uploadingImages, setUploadingImages] = useState(false);
   const [msg, setMsg] = useState(false);
+
   const productDetails = useSelector((state) => state.productDetails);
   const { error, loading, product } = productDetails;
-  const dispatch = useDispatch();
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     error: errorUpdate,
     loading: loadingUpdate,
     success: successUpdate,
   } = productUpdate;
-
   const productImagesList = useSelector((state) => state.productImagesList);
   const { images } = productImagesList;
-
-  console.log(images);
 
   useEffect(() => {
     if (successUpdate) {
@@ -68,7 +60,7 @@ function ProductEditScreen({ match, history }) {
       }
     }
 
-    dispach(listProductImages(productId));
+    dispatch(listProductImages(productId));
   }, [dispatch, product, productId, history, successUpdate]);
 
   const uploadFileHandler = async (e) => {
@@ -147,52 +139,6 @@ function ProductEditScreen({ match, history }) {
     );
   };
 
-  //const uploadMultiFilesHandler = async (e) => {
-  //https://stackoverflow.com/questions/58381990/react-axios-multiple-files-upload
-  //https://fontawesome.com/v5.15/icons/cloud-upload-alt?style=solid
-  //https://www.youtube.com/watch?v=bTC_qODZ1bQ
-
-  // const files = e.target.files
-  // const numFiles = files.length
-  // const formData = new FormData()
-  // const test2 = 'j'
-
-  // //const productimages = [];
-
-  // for (let i = 0 ; i < numFiles; i++) {
-  //     //console.log(files[i].name)
-  //     const formData = new FormData()
-  //     //productimages.push(files[i]);
-  //     //console.log(productimages.push(files[i]))
-  //     formData.append('image', files[i])
-  //     formData.append('product_id', productId)
-
-  //     setUploading(true)
-
-  //     try{
-  //         const config = {
-  //             headers: {
-  //                 'Content-Type':'multipart/form-data'
-  //             }
-  //         }
-
-  //         const {data} = await axios.post('/api/products/multiupload/', formData, config)
-  //         //images_depot = 'j'
-  //         console.log(data.images)
-  //         setTest(data.images)
-  //         setUploading(false)
-
-  //     }catch(error){
-  //         setUploading(false)
-  //     }
-
-  // }
-
-  //console.log(productimages[1].name)
-  //formData.append('image', productimages)
-  //console.log('formData',formData)
-  //}
-
   return (
     <div className="margin-top-from-navbar">
       <Link to="/admin/productlist">{t("ProductsEditScreen_btn_go_back")}</Link>
@@ -269,24 +215,6 @@ function ProductEditScreen({ match, history }) {
                 {msg ? t(msgTextUploadImages) : ""}
               </p>
             </Row>
-            {/* <div>
-              {showResults ? (
-                <Button
-                  className="btn-img-upload rounded mb-3"
-                  onClick={onClick2}
-                >
-                  Hide
-                </Button>
-              ) : (
-                <Button
-                  className="btn-img-upload rounded mb-3"
-                  onClick={onClick}
-                >
-                  Show
-                </Button>
-              )}
-            </div> */}
-
             {showResults ? (
               <Form.Group>
                 {loading ? (

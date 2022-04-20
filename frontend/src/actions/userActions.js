@@ -14,7 +14,6 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
-  USER_UPDATE_PROFILE_RESET,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
@@ -31,11 +30,6 @@ import {
   PASSWORD_RESET_CONFIRM_REQUEST,
   PASSWORD_RESET_CONFIRM_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  USER_LOADED_SUCCESS,
-  USER_LOADED_FAIL,
   ACTIVATE_REQUEST,
   ACTIVATE_SUCCESS,
   ACTIVATE_FAIL,
@@ -62,12 +56,7 @@ export const activate = (uid, token) => async (dispatch) => {
 
     console.log("body", body);
 
-    const { data } = await axios.post(
-      //"http://127.0.0.1:8000/auth/users/activation/",
-      "/auth/users/activation/",
-      body,
-      config
-    );
+    const { data } = await axios.post("/auth/users/activation/", body, config);
 
     dispatch({
       type: ACTIVATE_SUCCESS,
@@ -85,68 +74,6 @@ export const activate = (uid, token) => async (dispatch) => {
     });
   }
 };
-
-// export const load_user = () => async (dispatch) => {
-//   if (localStorage.getItem("access")) {
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `JWT ${localStorage.getItem("access")}`,
-//         Accept: "application/json",
-//       },
-//     };
-
-//     try {
-//       const res = await axios.get(`/auth/users/me/`, config);
-
-//       dispatch({
-//         type: USER_LOADED_SUCCESS,
-//         payload: res.data,
-//       });
-//     } catch (err) {
-//       dispatch({
-//         type: USER_LOADED_FAIL,
-//       });
-//     }
-//   } else {
-//     dispatch({
-//       type: USER_LOADED_FAIL,
-//     });
-//   }
-// };
-
-// export const login2 = (password, userName) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: LOGIN_REQUEST,
-//     });
-
-//     const config = {
-//       headers: {
-//         "Content-type": "application/json",
-//       },
-//     };
-
-//     const { data } = await axios.post(
-//       "/auth/users/",
-//       { username: userName, password: password },
-//       config
-//     );
-
-//     dispatch({
-//       type: LOGIN_SUCCESS,
-//       payload: data,
-//     });
-
-//     const body = JSON.stringify(data);
-
-//     dispatch(load_user());
-//   } catch (error) {
-//     dispatch({
-//       type: LOGIN_FAIL,
-//     });
-//   }
-// };
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -203,22 +130,9 @@ export const registerUser = (name, email, password) => async (dispatch) => {
       },
     };
 
-    // const { data } = await axios.post(
-    //   "/api/users/register/",
-    //   { name: name, email: email, password: password },
-    //   config
-    // );
-
-    //Djoser
     const { data } = await axios.post(
-      //"http://localhost:8000/auth/users/",
-      "/auth/users/",
-      {
-        username: name,
-        email: email,
-        password: password,
-        re_password: password,
-      },
+      "/api/users/register/",
+      { name: name, email: email, password: password },
       config
     );
 
@@ -259,7 +173,6 @@ export const reset_password = (email) => async (dispatch) => {
     const body = JSON.stringify({ email });
 
     const { data } = await axios.post(
-      //"api/users/reset_password/",
       "/auth/users/reset_password/",
       body,
       config

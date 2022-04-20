@@ -42,7 +42,7 @@ function UserEditScreen({ match, history }) {
         setIsAdmin(user.IsAdmin);
       }
     }
-  }, [user, userId, successUpdate, history]);
+  }, [dispatch, user, userId, successUpdate, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
