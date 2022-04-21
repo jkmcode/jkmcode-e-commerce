@@ -93,3 +93,14 @@ Database used in project is Postgresql which is on Heroku server (This is hobby 
 - Mark orders as delivered option
 - Checkout process (shipping, payment method, etc)
 - PayPal / credit card integration
+
+## Download & Setup Instructions
+
+- 1 - Clone project: git clone https://github.com/jkmcode/jkmcode-e-commerce
+- 2 - cd jkmcode-e-commerce
+- 3 - Create virtual environment: virtualenv myenv
+- 4 - cd myenv\scripts
+- 5 - activate virtual environment: activate
+- 6 - back to project: jkmcode-e-commerce
+- 7 - pip install -r requirements.txt
+- 8 - python manage.py runserver
