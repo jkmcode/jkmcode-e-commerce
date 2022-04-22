@@ -82,7 +82,7 @@ i18n
           CartScreen_empty_cart_message: "Your cart is empty",
           CartScreen_empty_subtotal_items: "SUBTOTAL ITEMS",
 
-          CheckoutSteps_login: "LOGOWANIE",
+          CheckoutSteps_login: "LOGIN",
           CheckoutSteps_shipping: "SHIPPING",
           CheckoutSteps_payments: "PAYMENTS",
           CheckoutSteps_place_order: "PLACE ORDER",
@@ -230,7 +230,6 @@ i18n
 
           "User with this email already exists":
             "User with this email already exists",
-          "Password do not match": "Password do not match",
 
           create_user_info:
             "Email has been sent. Please click to the link in order to activate user account.",
@@ -241,6 +240,8 @@ i18n
 
           Error_404_MSG: "No connection to the server",
           Error_Account_Not_Found: "Login or password is incorrect",
+          Error_400_MSG: "e-mail already exists",
+          Error_password_does_not_match: "Password does not match",
         },
       },
 
@@ -308,7 +309,7 @@ i18n
           CheckoutSteps_login: "LOGIN",
           CheckoutSteps_shipping: "ADRES",
           CheckoutSteps_payments: "PŁATNOŚCI",
-          CheckoutSteps_place_order: "ZŁOŻENIE ZAMÓWIENIA",
+          CheckoutSteps_place_order: "ZAMÓWIENIE",
 
           ShippingScreen_btn_country: "KONTYNUUJ",
           ShippingScreen_title: "ADRES DO WYSYŁKI",
@@ -461,6 +462,8 @@ i18n
           Error_Other_MSG: "Błąd sieciowy",
           Error_404_MSG: "Brak połączenia z serwerem",
           Error_Account_Not_Found: "Login lub hasło jest nieprawidłowe",
+          Error_400_MSG: "Podany email już istnieje",
+          Error_password_does_not_match: "Podane hasła są nieprawidłowe",
         },
       },
     },

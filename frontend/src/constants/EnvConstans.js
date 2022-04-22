@@ -12,7 +12,7 @@ export const REQUEST_FAIL_WITH_STATUS_CODE_404_EN =
 export const REQUEST_FAIL_WITH_STATUS_CODE_404_PL =
   "Brak połączenia z serwerem";
 export const REQUEST_FAILED_WITH_STATUS_CODE_400 =
-  "Request failed with status code 400";
+  "User with this email already exists";
 export const REQUEST_FAILED_WITH_STATUS_CODE_400_TOKEN_USED =
   "Token was used already";
 export const REQUEST_FAILED_WITH_STATUS_CODE_400_EN = "Email already exist";
